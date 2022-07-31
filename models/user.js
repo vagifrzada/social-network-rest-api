@@ -39,4 +39,9 @@ userSchema.methods.transform = function () {
     }
 }
 
+userSchema.methods.removePost = async function (post) {
+    this.posts.pull(post._id)
+    await this.save()
+}
+
 module.exports = mongoose.model("User", userSchema)

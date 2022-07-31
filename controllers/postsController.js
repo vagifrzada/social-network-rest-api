@@ -54,7 +54,11 @@ async function store(req, res, next) {
 
 async function update(req, res, next) {
     try {
+        const user = req.user
         const post = await PostService.getOne(req.params.id)
+        if (!checkAuthor(user, post)) {
+            return res.status(403).json({ message: "Forbidden action" })
+        }
         const updatedPost = await PostService.update(post, {
             ...req.body,
             image: req.file,
@@ -73,8 +77,13 @@ async function update(req, res, next) {
 
 async function destroy(req, res, next) {
     try {
+        const user = req.user
         const post = await PostService.getOne(req.params.id)
+        if (!checkAuthor(user, post)) {
+            return res.status(403).json({ message: "Forbidden action" })
+        }
         await PostService.destroy(post)
+        await user.removePost(post)
         return res.status(200).json({
             message: "Post deleted successfully",
         })
@@ -84,6 +93,10 @@ async function destroy(req, res, next) {
             message: err.message,
         })
     }
+}
+
+function checkAuthor(user, post) {
+    return post.creator.equals(user._id)
 }
 
 module.exports = {
