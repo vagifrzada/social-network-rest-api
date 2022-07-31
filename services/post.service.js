@@ -15,6 +15,10 @@ async function getOne(id) {
 
 async function getAll(paginator) {
     return await Post.find()
+        .populate({
+            path: "creator",
+            select: "name",
+        })
         .sort({ createdAt: "desc" })
         .setOptions(paginator.options)
 }
@@ -23,15 +27,17 @@ async function create(req) {
     const { title, content } = req.body
 
     try {
+        const user = req.user
         const post = new Post({
             title,
             content,
             image: req.file.filename,
-            creator: {
-                name: "Vagif Rufullazada",
-            },
+            creator: user._id.toString(),
         })
-        return await post.save()
+        const storedPost = await post.save()
+        user.posts.push(storedPost)
+        await user.save()
+        return storedPost
     } catch (err) {
         console.log(err)
         throw err
