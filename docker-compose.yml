@@ -11,7 +11,7 @@ services:
         volumes:
             - .:/app
         networks:
-            - social-network-mern-api
+            - social-network-rest-api
         command: npm run dev-server
         tty: true
         depends_on:
@@ -23,7 +23,7 @@ services:
         ports:
             - "27017:27017"
         networks:
-            - social-network-mern-api
+            - social-network-rest-api
         tty: true
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
