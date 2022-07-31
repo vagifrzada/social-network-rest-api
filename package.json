@@ -1,0 +1,28 @@
+{
+    "name": "express-rest-api",
+    "version": "1.0.0",
+    "description": "Simple express rest api project",
+    "main": "index.js",
+    "scripts": {
+        "dev-server": "nodemon server.js",
+        "prod-server": "node server.js",
+        "storage:link": "ln -s ./storage/public ./public"
+    },
+    "keywords": [],
+    "author": "Vagif Rufullazada",
+    "license": "MIT",
+    "devDependencies": {
+        "nodemon": "^2.0.16"
+    },
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.1",
+        "express": "^4.18.1",
+        "express-validator": "^6.14.2",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^6.4.2",
+        "multer": "^1.4.5-lts.1",
+        "uuid": "^8.3.2"
+    }
+}

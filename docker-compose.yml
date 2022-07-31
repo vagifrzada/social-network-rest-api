@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+    app:
+        container_name: app
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+        ports:
+            - "8080:3000"
+        volumes:
+            - .:/app
+        networks:
+            - social-network-mern-api
+        command: npm run dev-server
+        tty: true
+        depends_on:
+            - db
+    db:
+        container_name: mongodb
+        image: mongo:4.4-focal
+        restart: unless-stopped
+        ports:
+            - "27017:27017"
+        networks:
+            - social-network-mern-api
+        tty: true
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: secret
+        volumes:
+            - db:/data/db
+
+networks:
+    social-network-mern-api:
+
+volumes:
+    db:
