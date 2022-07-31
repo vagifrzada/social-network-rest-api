@@ -32,7 +32,7 @@ services:
             - db:/data/db
 
 networks:
-    social-network-mern-api:
+    social-network-rest-api:
 
 volumes:
     db:
