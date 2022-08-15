@@ -1,7 +1,6 @@
 const path = require("path")
 const fs = require("fs").promises
 const Post = require("../models/post")
-const paginator = require("../utils/paginator")
 
 async function getOne(id) {
     const post = await Post.findById(id)
