@@ -8,6 +8,9 @@ module.exports = async (req, res, next) => {
             throw new Error("No authorization header passed")
         }
         const token = authHeader.substring(7)
+        if (!token) {
+            throw new Error("Passed token is invalid")
+        }
         const jwtSecret = process.env.JWT_SECRET
         const { email } = await jwt.verify(token, jwtSecret)
         const user = await UserService.findByEmail(email)
@@ -17,7 +20,6 @@ module.exports = async (req, res, next) => {
         req.user = user
         return next()
     } catch (err) {
-        console.log(err)
         return res.status(401).json({ message: "Unauthorized." })
     }
 }

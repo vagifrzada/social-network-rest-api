@@ -4,6 +4,7 @@
     "description": "Simple express rest api project",
     "main": "index.js",
     "scripts": {
+        "test": "mocha tests/unit/**",
         "dev-server": "nodemon server.js",
         "prod-server": "node server.js",
         "storage:link": "ln -s ./storage/public ./public"
@@ -12,7 +13,10 @@
     "author": "Vagif Rufullazada",
     "license": "MIT",
     "devDependencies": {
-        "nodemon": "^2.0.16"
+        "chai": "^4.3.7",
+        "mocha": "^10.2.0",
+        "nodemon": "^2.0.16",
+        "sinon": "^15.0.1"
     },
     "dependencies": {
         "bcryptjs": "^2.4.3",
