@@ -4,7 +4,7 @@
     "description": "Simple express rest api project",
     "main": "index.js",
     "scripts": {
-        "test": "mocha tests/unit/**",
+        "test": "NODE_ENV=test DOTENV_CONFIG_PATH=.env.test mocha tests/unit/** --timeout=4000 -r dotenv/config",
         "dev-server": "nodemon server.js",
         "prod-server": "node server.js",
         "storage:link": "ln -s ./storage/public ./public"
